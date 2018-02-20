@@ -21,18 +21,7 @@ Just look at [**ApiGen API**](https://apigen.github.io/ApiGen):
 Add to your `composer.json`:
 
 ```json
-{
-    "require": {
-        "apigen/apigen": "dev-master",
-        "roave/better-reflection": "dev-master#c87d856"
-    }
-}
-```
-
-then update:
-
-```bash
-composer update
+composer require apigen/apigen:@dev --dev
 ```
 
 Test it, report issues or send PRs.
