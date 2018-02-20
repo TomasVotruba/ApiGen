@@ -12,22 +12,11 @@ Just look at [**ApiGen API**](https://apigen.github.io/ApiGen):
 
 ![ApiGen Preview](docs/preview.png)
 
-## Your Help is Needed to Finish 5.x Release  
-
-:heart: We need your help to test new version of ApiGen.
-
-### How to install it?
-
-Add to your `composer.json`:
+## Install
 
 ```json
 composer require apigen/apigen:@dev --dev
 ```
-
-Test it, report issues or send PRs.
-
- :skull:  **Version 4.x is not supported**, since there was huge change of Reflection library and the code was almost completely rewritten.
-
 
 ## Built on Shoulders of Giants
 
