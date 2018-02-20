@@ -82,8 +82,9 @@ final class CollectorCompilerPass implements CompilerPassInterface
         );
     }
 
-    private function collectReflectionCollectorsToReflectionCollectorCollector(ContainerBuilder $containerBuilder): void
-    {
+    private function collectReflectionCollectorsToReflectionCollectorCollector(
+        ContainerBuilder $containerBuilder
+    ): void {
         DefinitionCollector::loadCollectorWithType(
             $containerBuilder,
             ReflectionCollectorCollector::class,

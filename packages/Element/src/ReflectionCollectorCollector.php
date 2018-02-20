@@ -13,9 +13,9 @@ final class ReflectionCollectorCollector
      */
     private $reflectionCollectors = [];
 
-    public function addReflectionCollector(BasicReflectionCollectorInterface $reflectionCollector): void
+    public function addReflectionCollector(BasicReflectionCollectorInterface $basicReflectionCollector): void
     {
-        $this->reflectionCollectors[] = $reflectionCollector;
+        $this->reflectionCollectors[] = $basicReflectionCollector;
     }
 
     public function processReflection(AbstractReflectionInterface $reflection): void

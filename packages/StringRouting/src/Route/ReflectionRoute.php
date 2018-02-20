@@ -2,7 +2,6 @@
 
 namespace ApiGen\StringRouting\Route;
 
-use ApiGen\Reflection\Contract\Reflection\AbstractReflectionInterface;
 use ApiGen\Reflection\Contract\Reflection\Class_\AbstractClassElementInterface;
 use ApiGen\Reflection\Contract\Reflection\Class_\ClassMethodReflectionInterface;
 use ApiGen\Reflection\Contract\Reflection\Class_\ClassPropertyReflectionInterface;
@@ -31,9 +30,6 @@ final class ReflectionRoute implements RouteInterface
         return $name === self::NAME;
     }
 
-    /**
-     * @param AbstractReflectionInterface $argument
-     */
     public function constructUrl($reflection): string
     {
         if ($reflection instanceof ClassReflectionInterface && $reflection->implementsInterface(Throwable::class)) {

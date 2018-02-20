@@ -23,7 +23,7 @@ final class ChildNamespacesResolver
     {
         $prefix = $namespace . '\\';
         $len = strlen($prefix);
-        $namespaces = array();
+        $namespaces = [];
 
         foreach ($this->namespaceReflectionCollector->getNamespaces() as $sub) {
             if (substr($sub, 0, $len) === $prefix

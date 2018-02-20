@@ -12,7 +12,7 @@ final class NamespaceGeneratorTest extends AbstractContainerAwareTestCase
     /**
      * @var TraitGenerator
      */
-    private $namespaceGenerator;
+    private $traitGenerator;
 
     protected function setUp(): void
     {
@@ -20,12 +20,12 @@ final class NamespaceGeneratorTest extends AbstractContainerAwareTestCase
         $parser = $this->container->get(Parser::class);
         $parser->parseFilesAndDirectories([__DIR__ . '/Source']);
 
-        $this->namespaceGenerator = $this->container->get(NamespaceGenerator::class);
+        $this->traitGenerator = $this->container->get(NamespaceGenerator::class);
     }
 
     public function test(): void
     {
-        $this->namespaceGenerator->generate();
+        $this->traitGenerator->generate();
         $this->assertFileExists(TEMP_DIR . '/namespace-ApiGen.Tests.Generator.Source.html');
     }
 }

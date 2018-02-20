@@ -11,17 +11,17 @@ final class StartAndEndLineTest extends AbstractParserAwareTestCase
     /**
      * @var StartAndEndLineInterface
      */
-    private $reflection;
+    private $startAndEndLine;
 
     protected function setUp(): void
     {
         $this->parser->parseFilesAndDirectories([__DIR__ . '/Source']);
-        $this->reflection = $this->reflectionStorage->getClassReflections()[SomeClassWithAnnotations::class];
+        $this->startAndEndLine = $this->reflectionStorage->getClassReflections()[SomeClassWithAnnotations::class];
     }
 
     public function test(): void
     {
-        $this->assertSame(12, $this->reflection->getStartLine());
-        $this->assertSame(24, $this->reflection->getEndLine());
+        $this->assertSame(12, $this->startAndEndLine->getStartLine());
+        $this->assertSame(24, $this->startAndEndLine->getEndLine());
     }
 }

@@ -29,10 +29,7 @@ final class RunCommand
 
     public static function createFromInput(InputInterface $input): self
     {
-        return new self(
-            $input->getArgument(SourceOption::NAME),
-            $input->getOption(DestinationOption::NAME)
-        );
+        return new self($input->getArgument(SourceOption::NAME), $input->getOption(DestinationOption::NAME));
     }
 
     /**

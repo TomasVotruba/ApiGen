@@ -11,6 +11,7 @@ final class UseDifferentVendorTest extends AbstractContainerAwareTestCase
 {
     public function test(): void
     {
+        /** @var Parser $parser */
         $parser = $this->container->get(Parser::class);
 
         $parser->parseFilesAndDirectories([__DIR__ . '/DifferentVendorSources/src']);

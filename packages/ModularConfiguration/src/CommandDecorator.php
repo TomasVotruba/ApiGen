@@ -16,9 +16,9 @@ final class CommandDecorator
      */
     private $options = [];
 
-    public function addOption(CommandBoundInterface $option): void
+    public function addOption(CommandBoundInterface $commandBound): void
     {
-        $this->options[$option->getName()] = $option;
+        $this->options[$commandBound->getName()] = $commandBound;
     }
 
     public function decorateCommand(Command $command): void
@@ -38,49 +38,49 @@ final class CommandDecorator
         }
     }
 
-    private function isCommandCandidate(CommandBoundInterface $option, Command $command): bool
+    private function isCommandCandidate(CommandBoundInterface $commandBound, Command $command): bool
     {
-        return is_a($command, $option->getCommand());
+        return is_a($command, $commandBound->getCommand());
     }
 
-    private function addCommandArgument(Command $command, CommandArgumentInterface $argument): void
+    private function addCommandArgument(Command $command, CommandArgumentInterface $commandArgument): void
     {
         $command->addArgument(
-            $argument->getName(),
-            $this->getCommandArgumentMode($argument),
-            $argument->getDescription()
+            $commandArgument->getName(),
+            $this->getCommandArgumentMode($commandArgument),
+            $commandArgument->getDescription()
         );
     }
 
-    private function getCommandArgumentMode(CommandArgumentInterface $argument): int
+    private function getCommandArgumentMode(CommandArgumentInterface $commandArgument): int
     {
         $mode = 0;
-        if ($argument->isValueRequired()) {
+        if ($commandArgument->isValueRequired()) {
             $mode |= InputArgument::REQUIRED;
         }
 
-        if ($argument->isArray()) {
+        if ($commandArgument->isArray()) {
             $mode |= InputArgument::IS_ARRAY;
         }
 
         return $mode;
     }
 
-    private function addCommandOption(Command $command, CommandOptionInterface $option): void
+    private function addCommandOption(Command $command, CommandOptionInterface $commandOption): void
     {
         $command->addOption(
-            $option->getName(),
+            $commandOption->getName(),
             null,
-            $this->getCommandOptionMode($option),
-            $option->getDescription(),
-            $option->getDefaultValue()
+            $this->getCommandOptionMode($commandOption),
+            $commandOption->getDescription(),
+            $commandOption->getDefaultValue()
         );
     }
 
-    private function getCommandOptionMode(CommandOptionInterface $option): int
+    private function getCommandOptionMode(CommandOptionInterface $commandOption): int
     {
         $mode = 0;
-        if ($option->isValueRequired()) {
+        if ($commandOption->isValueRequired()) {
             $mode |= InputOption::VALUE_REQUIRED;
         }
 

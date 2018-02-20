@@ -18,7 +18,7 @@ final class ClassParameterReflectionTest extends AbstractParserAwareTestCase
     /**
      * @var MethodParameterReflectionInterface
      */
-    private $parameterReflection;
+    private $methodParameterReflection;
 
     protected function setUp(): void
     {
@@ -27,11 +27,11 @@ final class ClassParameterReflectionTest extends AbstractParserAwareTestCase
         $this->classReflection = $this->reflectionStorage->getClassReflections()[ParameterMethodClass::class];
 
         $methodReflection = $this->classReflection->getMethod('methodWithClassParameter');
-        $this->parameterReflection = $methodReflection->getParameters()['parameterClass'];
+        $this->methodParameterReflection = $methodReflection->getParameters()['parameterClass'];
     }
 
     public function testGetTypeHint(): void
     {
-        $this->assertSame(ParameterClass::class, $this->parameterReflection->getTypeHint());
+        $this->assertSame(ParameterClass::class, $this->methodParameterReflection->getTypeHint());
     }
 }

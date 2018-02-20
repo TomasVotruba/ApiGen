@@ -27,7 +27,7 @@ final class ClassConstantReflectionTest extends AbstractParserAwareTestCase
     /**
      * @var ClassConstantReflectionInterface
      */
-    private $composedWithDirConstantReflection;
+    private $classConstantReflection;
 
     protected function setUp(): void
     {
@@ -38,7 +38,7 @@ final class ClassConstantReflectionTest extends AbstractParserAwareTestCase
         $this->classConstantReflection = $classReflection->getConstant('CONSTANT_INSIDE');
         $this->composedClassConstantReflection = $classReflection->getConstant('COMPOSED');
         $this->arrayClassConstantReflection = $classReflection->getConstant('ARRAY_CONSTANT');
-        $this->composedWithDirConstantReflection = $classReflection->getConstant('COMPOSED_WITH_DIR');
+        $this->classConstantReflection = $classReflection->getConstant('COMPOSED_WITH_DIR');
     }
 
     public function testInstance(): void
@@ -62,7 +62,7 @@ final class ClassConstantReflectionTest extends AbstractParserAwareTestCase
         $this->assertSame('int', $this->classConstantReflection->getTypeHint());
         $this->assertSame(55, $this->classConstantReflection->getValue());
         $this->assertSame('right now', $this->composedClassConstantReflection->getValue());
-        $this->assertSame(__DIR__ . '/Source/here', $this->composedWithDirConstantReflection->getValue());
+        $this->assertSame(__DIR__ . '/Source/here', $this->classConstantReflection->getValue());
 
         $this->assertSame([1, 2], $this->arrayClassConstantReflection->getValue());
     }

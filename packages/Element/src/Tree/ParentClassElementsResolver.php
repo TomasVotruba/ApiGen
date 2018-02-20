@@ -64,10 +64,7 @@ final class ParentClassElementsResolver
      */
     private function getParentClassesAndInterfaces(ClassReflectionInterface $classReflection): array
     {
-        return array_merge(
-            $classReflection->getParentClasses(),
-            $classReflection->getInterfaces()
-        );
+        return array_merge($classReflection->getParentClasses(), $classReflection->getInterfaces());
     }
 
     /**

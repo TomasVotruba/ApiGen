@@ -23,6 +23,7 @@ final class GenerateCommandExecuteTest extends AbstractContainerAwareTestCase
     {
         $this->generateCommand = $this->container->get(GenerateCommand::class);
 
+        /** @var ConsoleOutput $output */
         $output = $this->container->get(ConsoleOutput::class);
         $output->setVerbosity(Output::VERBOSITY_QUIET);
     }
@@ -37,10 +38,7 @@ final class GenerateCommandExecuteTest extends AbstractContainerAwareTestCase
         ]);
 
         $exitCode = $this->generateCommand->run($input, new NullOutput);
-        $this->assertSame(
-            0, // success
-            $exitCode
-        );
+        $this->assertSame(0, // success$exitCode);
 
         $this->assertFileExists(TEMP_DIR . '/Api/index.html');
     }

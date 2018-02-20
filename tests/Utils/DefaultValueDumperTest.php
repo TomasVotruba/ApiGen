@@ -19,8 +19,6 @@ final class DefaultValueDumperTest extends TestCase
 
     /**
      * @dataProvider getDumpData()
-     *
-     * @param mixed
      */
     public function testDump($value, string $expected): void
     {

@@ -11,7 +11,7 @@ final class ExceptionGeneratorTest extends AbstractContainerAwareTestCase
     /**
      * @var ExceptionGenerator
      */
-    private $exceptionElementGenerator;
+    private $exceptionGenerator;
 
     protected function setUp(): void
     {
@@ -19,12 +19,12 @@ final class ExceptionGeneratorTest extends AbstractContainerAwareTestCase
         $parser = $this->container->get(Parser::class);
         $parser->parseFilesAndDirectories([__DIR__ . '/Source']);
 
-        $this->exceptionElementGenerator = $this->container->get(ExceptionGenerator::class);
+        $this->exceptionGenerator = $this->container->get(ExceptionGenerator::class);
     }
 
     public function testGenerate(): void
     {
-        $this->exceptionElementGenerator->generate();
+        $this->exceptionGenerator->generate();
 
         $this->assertFileExists(
             TEMP_DIR . '/exception-ApiGen.Tests.Generator.Source.SomeException.html'

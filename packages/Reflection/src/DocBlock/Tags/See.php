@@ -22,23 +22,23 @@ final class See extends BaseTag implements StaticMethod
     /**
      * @var Fqsen
      */
-    protected $refers;
+    protected $fqsen;
 
     /**
      * @var string
      */
     private $link;
 
-    public function __construct(?Fqsen $refers = null, ?string $link = null, ?Description $description = null)
+    public function __construct(?Fqsen $fqsen = null, ?string $link = null, ?Description $description = null)
     {
-        $this->refers = $refers;
+        $this->fqsen = $fqsen;
         $this->link = $link;
         $this->description = $description;
     }
 
     public function __toString(): string
     {
-        return ($this->refers ?: $this->link) . ($this->description ? ' ' . $this->description->render() : '');
+        return ($this->fqsen ?: $this->link) . ($this->description ? ' ' . $this->description->render() : '');
     }
 
     /**
@@ -46,31 +46,31 @@ final class See extends BaseTag implements StaticMethod
      */
     public static function create(
         $body,
-        FqsenResolver $resolver = null,
-        DescriptionFactory $descriptionFactory = null,
-        TypeContext $context = null
+        ?FqsenResolver $fqsenResolver = null,
+        ?DescriptionFactory $descriptionFactory = null,
+        ?TypeContext $typeContext = null
     ): self {
         Assert::string($body);
-        Assert::allNotNull([$resolver, $descriptionFactory]);
+        Assert::allNotNull([$fqsenResolver, $descriptionFactory]);
 
         $parts = preg_split('/\s+/Su', $body, 2);
 
         if (! Validators::isUrl($parts[0])) {
-            $fqsen = $resolver->resolve($parts[0], $context);
+            $fqsen = $fqsenResolver->resolve($parts[0], $typeContext);
             $link = null;
         } else {
             $link = $parts[0];
             $fqsen = null;
         }
 
-        $description = isset($parts[1]) ? $descriptionFactory->create($parts[1], $context) : null;
+        $description = isset($parts[1]) ? $descriptionFactory->create($parts[1], $typeContext) : null;
 
         return new static($fqsen, $link, $description);
     }
 
     public function getReference(): ?Fqsen
     {
-        return $this->refers;
+        return $this->fqsen;
     }
 
     public function getLink(): ?string

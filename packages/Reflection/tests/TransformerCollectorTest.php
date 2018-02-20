@@ -17,6 +17,7 @@ final class TransformerCollectorTest extends AbstractContainerAwareTestCase
             $this->createClassReflectionMock('ClassB'),
         ];
 
+        /** @var TransformerCollector $transformerCollector */
         $transformerCollector = $this->container->get(TransformerCollector::class);
         $elements = $transformerCollector->transformGroup($reflections);
 

@@ -43,7 +43,6 @@ final class ParamAnnotationSubscriber implements AnnotationSubscriberInterface
 
     /**
      * @param Param $content
-     * @return string
      */
     public function process($content, AbstractReflectionInterface $reflection): string
     {

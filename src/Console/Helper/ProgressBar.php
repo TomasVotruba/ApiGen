@@ -15,7 +15,7 @@ final class ProgressBar
     /**
      * @var ProgressBarHelper
      */
-    private $bar;
+    private $progressBarHelper;
 
     /**
      * @var OutputInterface
@@ -29,19 +29,19 @@ final class ProgressBar
 
     public function init(int $maximum = 1): void
     {
-        $this->bar = new ProgressBarHelper($this->output, $maximum);
-        $this->bar->setFormat(self::BAR_FORMAT);
-        $this->bar->start();
+        $this->progressBarHelper = new ProgressBarHelper($this->output, $maximum);
+        $this->progressBarHelper->setFormat(self::BAR_FORMAT);
+        $this->progressBarHelper->start();
     }
 
     public function increment(int $increment = 1): void
     {
-        if ($this->bar === null) {
+        if ($this->progressBarHelper === null) {
             return;
         }
 
-        $this->bar->advance($increment);
-        if ($this->bar->getProgress() === $this->bar->getMaxSteps()) {
+        $this->progressBarHelper->advance($increment);
+        if ($this->progressBarHelper->getProgress() === $this->progressBarHelper->getMaxSteps()) {
             $this->output->writeln('. <info>done!</info>');
         }
     }

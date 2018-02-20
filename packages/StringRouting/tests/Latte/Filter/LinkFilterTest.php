@@ -14,11 +14,11 @@ final class LinkFilterTest extends AbstractContainerAwareTestCase
     /**
      * @var Engine
      */
-    private $latte;
+    private $engine;
 
     protected function setUp(): void
     {
-        $this->latte = $this->container->get(Engine::class);
+        $this->engine = $this->container->get(Engine::class);
     }
 
     public function testInvalidArgument(): void
@@ -29,18 +29,20 @@ final class LinkFilterTest extends AbstractContainerAwareTestCase
             '"ApiGen\Reflection\Contract\Reflection\AbstractReflectionInterface". "string" given.'
         );
 
-        $this->latte->renderToString(__DIR__ . '/Source/template.latte', [
+        $this->engine->renderToString(__DIR__ . '/Source/template.latte', [
             'classReflection' => 'SomeClass',
         ]);
     }
 
     public function testBuildLinkIfReflectionFoundFilter(): void
     {
+        /** @var Parser $parser */
         $parser = $this->container->get(Parser::class);
         $parser->parseFilesAndDirectories([__DIR__ . '/Source/TestClass.php']);
+        /** @var ReflectionStorage $reflectionStorage */
         $reflectionStorage = $this->container->get(ReflectionStorage::class);
 
-        $html = $this->latte->renderToString(__DIR__ . '/Source/buildLinkIfReflectionFound-template.latte', [
+        $html = $this->engine->renderToString(__DIR__ . '/Source/buildLinkIfReflectionFound-template.latte', [
             'className' => TestClass::class,
         ]);
         $this->assertSame(
@@ -49,7 +51,7 @@ final class LinkFilterTest extends AbstractContainerAwareTestCase
             trim($html)
         );
 
-        $html = $this->latte->renderToString(__DIR__ . '/Source/buildLinkIfReflectionFound-template.latte', [
+        $html = $this->engine->renderToString(__DIR__ . '/Source/buildLinkIfReflectionFound-template.latte', [
             'className' => 'string',
         ]);
         $this->assertSame('string', trim($html));

@@ -19,7 +19,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
     /**
      * @var ReflectionClass
      */
-    private $betterInterfaceReflection;
+    private $reflectionClass;
 
     /**
      * @var DocBlock
@@ -37,38 +37,38 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
     private $implementersResolver;
 
     public function __construct(
-        ReflectionClass $betterInterfaceReflection,
+        ReflectionClass $reflectionClass,
         DocBlock $docBlock,
         ImplementersResolver $implementersResolver
     ) {
-        $this->betterInterfaceReflection = $betterInterfaceReflection;
+        $this->reflectionClass = $reflectionClass;
         $this->docBlock = $docBlock;
         $this->implementersResolver = $implementersResolver;
     }
 
     public function getName(): string
     {
-        return $this->betterInterfaceReflection->getName();
+        return $this->reflectionClass->getName();
     }
 
     public function getShortName(): string
     {
-        return $this->betterInterfaceReflection->getShortName();
+        return $this->reflectionClass->getShortName();
     }
 
     public function getNamespaceName(): string
     {
-        return $this->betterInterfaceReflection->getNamespaceName();
+        return $this->reflectionClass->getNamespaceName();
     }
 
     public function getStartLine(): int
     {
-        return $this->betterInterfaceReflection->getStartLine();
+        return $this->reflectionClass->getStartLine();
     }
 
     public function getEndLine(): int
     {
-        return $this->betterInterfaceReflection->getEndLine();
+        return $this->reflectionClass->getEndLine();
     }
 
     public function getDescription(): string
@@ -90,7 +90,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
 
     public function getFileName(): ?string
     {
-        return $this->betterInterfaceReflection->getFileName();
+        return $this->reflectionClass->getFileName();
     }
 
     /**
@@ -98,9 +98,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
      */
     public function getInterfaces(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterInterfaceReflection->getInterfaces()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getInterfaces());
     }
 
     /**
@@ -108,9 +106,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
      */
     public function getMethods(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterInterfaceReflection->getMethods()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getMethods());
     }
 
     /**
@@ -119,7 +115,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
     public function getOwnMethods(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterInterfaceReflection->getImmediateMethods()
+            $this->reflectionClass->getImmediateMethods()
         );
     }
 
@@ -134,7 +130,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
     public function getOwnConstants(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterInterfaceReflection->getImmediateReflectionConstants()
+            $this->reflectionClass->getImmediateReflectionConstants()
         );
     }
 
@@ -206,7 +202,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
      */
     public function implementsInterface(string $interface): bool
     {
-        return $this->betterInterfaceReflection->implementsInterface($interface);
+        return $this->reflectionClass->implementsInterface($interface);
     }
 
     public function setTransformerCollector(TransformerCollector $transformerCollector): void
@@ -246,7 +242,7 @@ final class InterfaceReflection implements InterfaceReflectionInterface, Transfo
     public function getOwnInterfaces(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterInterfaceReflection->getImmediateInterfaces()
+            $this->reflectionClass->getImmediateInterfaces()
         );
     }
 }

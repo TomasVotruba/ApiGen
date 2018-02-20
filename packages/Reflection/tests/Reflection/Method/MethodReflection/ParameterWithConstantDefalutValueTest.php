@@ -11,12 +11,12 @@ final class ParameterWithConstantDefalutValueTest extends AbstractParserAwareTes
     /**
      * @var MethodParameterReflectionInterface
      */
-    private $localConstantParameterReflection;
+    private $methodParameterReflection;
 
     /**
      * @var MethodParameterReflectionInterface
      */
-    private $classConstantParameterReflection;
+    private $methodParameterReflection;
 
     protected function setUp(): void
     {
@@ -25,14 +25,14 @@ final class ParameterWithConstantDefalutValueTest extends AbstractParserAwareTes
         $classReflection = $this->reflectionStorage->getClassReflections()[ParameterMethodClass::class];
 
         $methodReflection = $classReflection->getMethod('methodWithConstantDefaultValue');
-        $this->localConstantParameterReflection = $methodReflection->getParameters()['where'];
-        $this->classConstantParameterReflection = $methodReflection->getParameters()['when'];
+        $this->methodParameterReflection = $methodReflection->getParameters()['where'];
+        $this->methodParameterReflection = $methodReflection->getParameters()['when'];
     }
 
     public function testGetTypeHint(): void
     {
-        $this->assertSame('string', $this->localConstantParameterReflection->getTypeHint());
-        $this->assertSame('string', $this->classConstantParameterReflection->getTypeHint());
+        $this->assertSame('string', $this->methodParameterReflection->getTypeHint());
+        $this->assertSame('string', $this->methodParameterReflection->getTypeHint());
     }
 
     // @todo - fix after constant dump is fixed

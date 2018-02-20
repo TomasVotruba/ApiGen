@@ -18,7 +18,7 @@ final class InterfaceConstantReflection implements InterfaceConstantReflectionIn
     /**
      * @var ReflectionClassConstant
      */
-    private $betterConstantReflection;
+    private $reflectionClassConstant;
 
     /**
      * @var DocBlock
@@ -30,35 +30,35 @@ final class InterfaceConstantReflection implements InterfaceConstantReflectionIn
      */
     private $transformerCollector;
 
-    public function __construct(ReflectionClassConstant $constant, DocBlock $docBlock)
+    public function __construct(ReflectionClassConstant $reflectionClassConstant, DocBlock $docBlock)
     {
-        $this->betterConstantReflection = $constant;
+        $this->reflectionClassConstant = $reflectionClassConstant;
         $this->docBlock = $docBlock;
     }
 
     public function isPrivate(): bool
     {
-        return $this->betterConstantReflection->isPrivate();
+        return $this->reflectionClassConstant->isPrivate();
     }
 
     public function isProtected(): bool
     {
-        return $this->betterConstantReflection->isProtected();
+        return $this->reflectionClassConstant->isProtected();
     }
 
     public function isPublic(): bool
     {
-        return $this->betterConstantReflection->isPublic();
+        return $this->reflectionClassConstant->isPublic();
     }
 
     public function getName(): string
     {
-        return $this->betterConstantReflection->getName();
+        return $this->reflectionClassConstant->getName();
     }
 
     public function getTypeHint(): string
     {
-        $valueType = gettype($this->betterConstantReflection->getValue());
+        $valueType = gettype($this->reflectionClassConstant->getValue());
         if ($valueType === 'integer') {
             return 'int';
         }
@@ -71,7 +71,7 @@ final class InterfaceConstantReflection implements InterfaceConstantReflectionIn
      */
     public function getValue()
     {
-        return $this->betterConstantReflection->getValue();
+        return $this->reflectionClassConstant->getValue();
     }
 
     public function getValueDefinition(): string
@@ -111,18 +111,18 @@ final class InterfaceConstantReflection implements InterfaceConstantReflectionIn
 
     public function getStartLine(): int
     {
-        return $this->betterConstantReflection->getStartLine();
+        return $this->reflectionClassConstant->getStartLine();
     }
 
     public function getEndLine(): int
     {
-        return $this->betterConstantReflection->getEndLine();
+        return $this->reflectionClassConstant->getEndLine();
     }
 
     public function getDeclaringInterface(): InterfaceReflectionInterface
     {
         return $this->transformerCollector->transformSingle(
-            $this->betterConstantReflection->getDeclaringClass()
+            $this->reflectionClassConstant->getDeclaringClass()
         );
     }
 

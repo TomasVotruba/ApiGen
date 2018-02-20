@@ -4,7 +4,6 @@ namespace ApiGen\Console\Progress;
 
 use ApiGen\Element\Namespace_\ParentEmptyNamespacesResolver;
 use ApiGen\Element\ReflectionCollector\NamespaceReflectionCollector;
-use ApiGen\Reflection\Contract\Reflection\FileNameAwareReflectionInterface;
 use ApiGen\Reflection\ReflectionStorage;
 
 final class StepCounter
@@ -60,9 +59,6 @@ final class StepCounter
             + $this->getSourceCodeCountForReflections($this->reflectionStorage->getFunctionReflections());
     }
 
-    /**
-     * @param FileNameAwareReflectionInterface[]
-     */
     private function getSourceCodeCountForReflections(array $reflections): int
     {
         $count = 0;

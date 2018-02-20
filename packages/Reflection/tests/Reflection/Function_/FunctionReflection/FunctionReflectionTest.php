@@ -49,10 +49,7 @@ final class FunctionReflectionTest extends AbstractParserAwareTestCase
 
     public function testNamespaces(): void
     {
-        $this->assertSame(
-            $this->namespacePrefix,
-            $this->functionReflection->getNamespaceName()
-        );
+        $this->assertSame($this->namespacePrefix, $this->functionReflection->getNamespaceName());
     }
 
     public function testAnnotations(): void

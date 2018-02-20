@@ -16,12 +16,12 @@ abstract class AbstractReflectionClassTestCase extends AbstractContainerAwareTes
     /**
      * @var ClassReflectionInterface
      */
-    protected $reflectionClass;
+    protected $classReflection;
 
     /**
      * @var ClassReflectionInterface
      */
-    protected $reflectionClassOfParent;
+    protected $classReflection;
 
     /**
      * @var InterfaceReflectionInterface
@@ -38,8 +38,8 @@ abstract class AbstractReflectionClassTestCase extends AbstractContainerAwareTes
         $reflectionStorage = $this->container->get(ReflectionStorage::class);
 
         $classReflections = $reflectionStorage->getClassReflections();
-        $this->reflectionClass = $classReflections[AccessLevels::class];
-        $this->reflectionClassOfParent = $classReflections[ParentClass::class];
+        $this->classReflection = $classReflections[AccessLevels::class];
+        $this->classReflection = $classReflections[ParentClass::class];
 
         $interfaceReflections = $reflectionStorage->getInterfaceReflections();
         $this->interfaceReflection = $interfaceReflections[RichInterface::class];

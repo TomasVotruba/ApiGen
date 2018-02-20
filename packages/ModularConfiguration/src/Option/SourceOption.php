@@ -71,10 +71,7 @@ final class SourceOption implements CommandArgumentInterface
     {
         foreach ($sources as $source) {
             if (! file_exists($source)) {
-                throw new ConfigurationException(sprintf(
-                    'Source "%s" does not exist',
-                    $source
-                ));
+                throw new ConfigurationException(sprintf('Source "%s" does not exist', $source));
             }
         }
     }

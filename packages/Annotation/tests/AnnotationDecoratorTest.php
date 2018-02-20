@@ -23,12 +23,12 @@ final class AnnotationDecoratorTest extends AbstractParserAwareTestCase
     /**
      * @var ClassMethodReflectionInterface
      */
-    private $methodReflection;
+    private $classMethodReflection;
 
     /**
      * @var ClassMethodReflectionInterface
      */
-    private $secondMethodReflection;
+    private $classMethodReflection;
 
     protected function setUp(): void
     {
@@ -36,49 +36,49 @@ final class AnnotationDecoratorTest extends AbstractParserAwareTestCase
         $this->annotationDecorator = $this->container->get(AnnotationDecorator::class);
 
         $classReflection = $this->reflectionStorage->getClassReflections()[SomeClassWithReturnTypes::class];
-        $this->methodReflection = $classReflection->getOwnMethods()['returnArray'];
-        $this->secondMethodReflection = $classReflection->getOwnMethods()['returnClass'];
+        $this->classMethodReflection = $classReflection->getOwnMethods()['returnArray'];
+        $this->classMethodReflection = $classReflection->getOwnMethods()['returnClass'];
     }
 
     public function testClassArray(): void
     {
-        $returnAnnotation = $this->methodReflection->getAnnotation(AnnotationList::RETURN_)[0];
+        $returnAnnotation = $this->classMethodReflection->getAnnotation(AnnotationList::RETURN_)[0];
 
         $this->assertSame(
             '<code><a href="' . self::URL . '">ReturnedClass</a>[]</code>',
-            $this->annotationDecorator->decorate($returnAnnotation, $this->methodReflection)
+            $this->annotationDecorator->decorate($returnAnnotation, $this->classMethodReflection)
         );
     }
 
     public function testReturnClass(): void
     {
-        $returnAnnotation = $this->secondMethodReflection->getAnnotation(AnnotationList::RETURN_)[0];
+        $returnAnnotation = $this->classMethodReflection->getAnnotation(AnnotationList::RETURN_)[0];
 
         $this->assertSame(
             '<code><a href="' . self::URL . '">ReturnedClass</a></code>',
-            $this->annotationDecorator->decorate($returnAnnotation, $this->methodReflection)
+            $this->annotationDecorator->decorate($returnAnnotation, $this->classMethodReflection)
         );
     }
 
     public function testDoubleTypes(): void
     {
-        $param1Annotation = $this->methodReflection->getAnnotation(AnnotationList::PARAM)[0];
+        $param1Annotation = $this->classMethodReflection->getAnnotation(AnnotationList::PARAM)[0];
 
         $this->assertSame(
             'int|string[]',
-            $this->annotationDecorator->decorate($param1Annotation, $this->methodReflection)
+            $this->annotationDecorator->decorate($param1Annotation, $this->classMethodReflection)
         );
     }
 
     public function testDoubleWithSelfReference(): void
     {
-        $param2Annotation = $this->methodReflection->getAnnotation(AnnotationList::PARAM)[1];
+        $param2Annotation = $this->classMethodReflection->getAnnotation(AnnotationList::PARAM)[1];
 
         // @todo it doesn't make sense to link itself here, since it's the same page
         $this->assertSame(
             'string|<code><a href="class-ApiGen.Annotation.Tests.AnnotationDecoratorSource.'
             . 'SomeClassWithReturnTypes.html">$this</a></code>',
-            $this->annotationDecorator->decorate($param2Annotation, $this->methodReflection)
+            $this->annotationDecorator->decorate($param2Annotation, $this->classMethodReflection)
         );
     }
 }

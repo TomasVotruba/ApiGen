@@ -19,7 +19,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
     /**
      * @var ReflectionClass
      */
-    private $betterTraitReflection;
+    private $reflectionClass;
 
     /**
      * @var DocBlock
@@ -37,18 +37,18 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
     private $traitUsersResolver;
 
     public function __construct(
-        ReflectionClass $betterClassReflection,
+        ReflectionClass $reflectionClass,
         DocBlock $docBlock,
         TraitUsersResolver $traitUsersResolver
     ) {
-        $this->betterTraitReflection = $betterClassReflection;
+        $this->reflectionClass = $reflectionClass;
         $this->docBlock = $docBlock;
         $this->traitUsersResolver = $traitUsersResolver;
     }
 
     public function getName(): string
     {
-        return $this->betterTraitReflection->getName();
+        return $this->reflectionClass->getName();
     }
 
     /**
@@ -78,7 +78,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
 
     public function getShortName(): string
     {
-        return $this->betterTraitReflection->getShortName();
+        return $this->reflectionClass->getShortName();
     }
 
     public function isDeprecated(): bool
@@ -88,12 +88,12 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
 
     public function getNamespaceName(): string
     {
-        return $this->betterTraitReflection->getNamespaceName();
+        return $this->reflectionClass->getNamespaceName();
     }
 
     public function getFileName(): ?string
     {
-        return $this->betterTraitReflection->getFileName();
+        return $this->reflectionClass->getFileName();
     }
 
     /**
@@ -101,9 +101,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
      */
     public function getMethods(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterTraitReflection->getMethods()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getMethods());
     }
 
     /**
@@ -112,7 +110,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
     public function getOwnMethods(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterTraitReflection->getImmediateMethods()
+            $this->reflectionClass->getImmediateMethods()
         );
     }
 
@@ -148,7 +146,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
      */
     public function getTraitAliases(): array
     {
-        return $this->betterTraitReflection->getTraitAliases();
+        return $this->reflectionClass->getTraitAliases();
     }
 
     /**
@@ -156,9 +154,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
      */
     public function getProperties(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterTraitReflection->getProperties()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getProperties());
     }
 
     /**
@@ -167,7 +163,7 @@ final class TraitReflection implements TraitReflectionInterface, TransformerColl
     public function getOwnProperties(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterTraitReflection->getImmediateProperties()
+            $this->reflectionClass->getImmediateProperties()
         );
     }
 

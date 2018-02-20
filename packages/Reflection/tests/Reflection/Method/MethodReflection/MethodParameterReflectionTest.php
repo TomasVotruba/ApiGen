@@ -18,7 +18,7 @@ final class MethodParameterReflectionTest extends AbstractParserAwareTestCase
     /**
      * @var MethodParameterReflectionInterface
      */
-    private $parameterReflection;
+    private $methodParameterReflection;
 
     protected function setUp(): void
     {
@@ -27,61 +27,58 @@ final class MethodParameterReflectionTest extends AbstractParserAwareTestCase
         $this->classReflection = $this->reflectionStorage->getClassReflections()[ParameterMethodClass::class];
 
         $methodReflection = $this->classReflection->getMethod('methodWithArgs');
-        $this->parameterReflection = $methodReflection->getParameters()['url'];
+        $this->methodParameterReflection = $methodReflection->getParameters()['url'];
     }
 
     public function testInstance(): void
     {
-        $this->assertInstanceOf(MethodParameterReflectionInterface::class, $this->parameterReflection);
+        $this->assertInstanceOf(MethodParameterReflectionInterface::class, $this->methodParameterReflection);
     }
 
     public function testGetTypeHint(): void
     {
-        $this->assertSame('int|string', $this->parameterReflection->getTypeHint());
+        $this->assertSame('int|string', $this->methodParameterReflection->getTypeHint());
     }
 
     public function testGetDescription(): void
     {
-        $this->assertSame('the URL of the API endpoint', $this->parameterReflection->getDescription());
+        $this->assertSame('the URL of the API endpoint', $this->methodParameterReflection->getDescription());
     }
 
     public function testType(): void
     {
-        $this->assertFalse($this->parameterReflection->isArray());
-        $this->assertFalse($this->parameterReflection->isVariadic());
+        $this->assertFalse($this->methodParameterReflection->isArray());
+        $this->assertFalse($this->methodParameterReflection->isVariadic());
     }
 
     public function testGetDeclaringFunction(): void
     {
         $this->assertInstanceOf(
             ClassMethodReflectionInterface::class,
-            $this->parameterReflection->getDeclaringMethod()
+            $this->methodParameterReflection->getDeclaringMethod()
         );
     }
 
     public function testGetDeclaringFunctionName(): void
     {
-        $this->assertSame(
-            'methodWithArgs',
-            $this->parameterReflection->getDeclaringMethodName()
-        );
+        $this->assertSame('methodWithArgs', $this->methodParameterReflection->getDeclaringMethodName());
     }
 
     public function testGetDeclaringClass(): void
     {
         $this->assertInstanceOf(
             ClassReflectionInterface::class,
-            $this->parameterReflection->getDeclaringClass()
+            $this->methodParameterReflection->getDeclaringClass()
         );
 
         $this->assertSame(
             ParameterMethodClass::class,
-            $this->parameterReflection->getDeclaringClassName()
+            $this->methodParameterReflection->getDeclaringClassName()
         );
     }
 
     public function testIsPassedByReference(): void
     {
-        $this->assertFalse($this->parameterReflection->isPassedByReference());
+        $this->assertFalse($this->methodParameterReflection->isPassedByReference());
     }
 }

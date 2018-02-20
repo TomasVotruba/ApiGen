@@ -7,7 +7,7 @@ $loader->add('MyVendor', __DIR__ . '/../src');
 
 // Project's dependencies
 $loader->addClassMap([
-    'DifferentVendor\\DifferentClass' => __DIR__ . '/DifferentVendor/DifferentClass.php',
+    \DifferentVendor\DifferentClass::class => __DIR__ . '/DifferentVendor/DifferentClass.php',
 ]);
 
 $loader->register(true);

@@ -73,10 +73,7 @@ final class DestinationOption implements CommandOptionInterface
         FileSystem::ensureDirectoryExists($destination);
 
         if (! is_writable($destination)) {
-            throw new ConfigurationException(sprintf(
-                'Destination "%s" is not writable.',
-                $destination
-            ));
+            throw new ConfigurationException(sprintf('Destination "%s" is not writable.', $destination));
         }
     }
 }

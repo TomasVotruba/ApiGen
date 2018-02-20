@@ -10,11 +10,11 @@ final class PhpHighlightFilter implements FilterProviderInterface
     /**
      * @var SourceCodeHighlighter
      */
-    private $highlighter;
+    private $sourceCodeHighlighter;
 
-    public function __construct(SourceCodeHighlighter $highlighter)
+    public function __construct(SourceCodeHighlighter $sourceCodeHighlighter)
     {
-        $this->highlighter = $highlighter;
+        $this->sourceCodeHighlighter = $sourceCodeHighlighter;
     }
 
     /**
@@ -25,7 +25,7 @@ final class PhpHighlightFilter implements FilterProviderInterface
         return [
             // use in .latte: {$method|phpHighlight}
             'phpHighlight' => function ($code) {
-                return $this->highlighter->highlight($code);
+                return $this->sourceCodeHighlighter->highlight($code);
             },
         ];
     }

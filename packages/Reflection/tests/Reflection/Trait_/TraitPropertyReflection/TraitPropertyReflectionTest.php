@@ -12,19 +12,19 @@ final class TraitPropertyReflectionTest extends AbstractParserAwareTestCase
     /**
      * @var TraitPropertyReflectionInterface
      */
-    private $propertyReflection;
+    private $traitPropertyReflection;
 
     protected function setUp(): void
     {
         $this->parser->parseFilesAndDirectories([__DIR__ . '/Source']);
         $traitReflections = $this->reflectionStorage->getTraitReflections();
         $traitReflection = $traitReflections[TraitPropertyTrait::class];
-        $this->propertyReflection = $traitReflection->getProperty('memberCount');
+        $this->traitPropertyReflection = $traitReflection->getProperty('memberCount');
     }
 
     public function testGetDeclaringTrait(): void
     {
-        $this->assertInstanceOf(TraitReflectionInterface::class, $this->propertyReflection->getDeclaringTrait());
-        $this->assertSame(TraitPropertyTrait::class, $this->propertyReflection->getDeclaringTraitName());
+        $this->assertInstanceOf(TraitReflectionInterface::class, $this->traitPropertyReflection->getDeclaringTrait());
+        $this->assertSame(TraitPropertyTrait::class, $this->traitPropertyReflection->getDeclaringTraitName());
     }
 }

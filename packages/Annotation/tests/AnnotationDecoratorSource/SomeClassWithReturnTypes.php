@@ -5,9 +5,6 @@ namespace ApiGen\Annotation\Tests\AnnotationDecoratorSource;
 final class SomeClassWithReturnTypes
 {
     /**
-     * @param int|string[] $value1
-     * @param string|$this $value2
-     *
      * @see ReturnedClass::$someProperty
      * @see ReturnedClass::someMethod()
      *

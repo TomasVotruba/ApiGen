@@ -19,21 +19,21 @@ abstract class AbstractParameterReflection implements AbstractParameterReflectio
     /**
      * @var ReflectionParameter
      */
-    protected $betterParameterReflection;
+    protected $reflectionParameter;
 
     /**
      * @var TransformerCollector
      */
     protected $transformerCollector;
 
-    public function __construct(ReflectionParameter $betterParameterReflection)
+    public function __construct(ReflectionParameter $reflectionParameter)
     {
-        $this->betterParameterReflection = $betterParameterReflection;
+        $this->reflectionParameter = $reflectionParameter;
     }
 
     public function getTypeHint(): string
     {
-        $types = (string) $this->betterParameterReflection->getType();
+        $types = (string) $this->reflectionParameter->getType();
         $types = $this->removeClassPreSlashes($types);
         if ($types) {
             return $types;
@@ -49,7 +49,7 @@ abstract class AbstractParameterReflection implements AbstractParameterReflectio
 
     public function isDefaultValueAvailable(): bool
     {
-        return $this->betterParameterReflection->isDefaultValueAvailable();
+        return $this->reflectionParameter->isDefaultValueAvailable();
     }
 
     /**
@@ -57,13 +57,13 @@ abstract class AbstractParameterReflection implements AbstractParameterReflectio
      */
     public function getDefaultValue()
     {
-        if ($this->betterParameterReflection->isDefaultValueAvailable()) {
+        if ($this->reflectionParameter->isDefaultValueAvailable()) {
             /* FIXME
             if ($this->betterParameterReflection->isDefaultValueConstant()) {
                 return $this->betterParameterReflection->getDefaultValueConstantName();
             }
             */
-            return $this->betterParameterReflection->getDefaultValue();
+            return $this->reflectionParameter->getDefaultValue();
         }
 
         return null;
@@ -71,22 +71,22 @@ abstract class AbstractParameterReflection implements AbstractParameterReflectio
 
     public function isVariadic(): bool
     {
-        return $this->betterParameterReflection->isVariadic();
+        return $this->reflectionParameter->isVariadic();
     }
 
     public function isCallable(): bool
     {
-        return $this->betterParameterReflection->isCallable();
+        return $this->reflectionParameter->isCallable();
     }
 
     public function isArray(): bool
     {
-        return $this->betterParameterReflection->isArray();
+        return $this->reflectionParameter->isArray();
     }
 
     public function isPassedByReference(): bool
     {
-        return $this->betterParameterReflection->isPassedByReference();
+        return $this->reflectionParameter->isPassedByReference();
     }
 
     public function setTransformerCollector(TransformerCollector $transformerCollector): void
@@ -109,11 +109,11 @@ abstract class AbstractParameterReflection implements AbstractParameterReflectio
         $declaringReflection = $this->getDeclaringReflection();
         $annotations = $declaringReflection->getAnnotation(AnnotationList::PARAM);
 
-        if (empty($annotations[$this->betterParameterReflection->getPosition()])) {
+        if (empty($annotations[$this->reflectionParameter->getPosition()])) {
             return null;
         }
 
-        return $annotations[$this->betterParameterReflection->getPosition()];
+        return $annotations[$this->reflectionParameter->getPosition()];
     }
 
     /**

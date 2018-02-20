@@ -20,7 +20,7 @@ final class TraitMethodReflection implements TraitMethodReflectionInterface, Tra
     /**
      * @var ReflectionMethod
      */
-    private $betterMethodReflection;
+    private $reflectionMethod;
 
     /**
      * @var DocBlock
@@ -32,26 +32,26 @@ final class TraitMethodReflection implements TraitMethodReflectionInterface, Tra
      */
     private $transformerCollector;
 
-    public function __construct(ReflectionMethod $betterFunctionReflection, DocBlock $docBlock)
+    public function __construct(ReflectionMethod $reflectionMethod, DocBlock $docBlock)
     {
-        $this->betterMethodReflection = $betterFunctionReflection;
+        $this->reflectionMethod = $reflectionMethod;
         $this->docBlock = $docBlock;
     }
 
     public function getName(): string
     {
-        return $this->betterMethodReflection->getName();
+        return $this->reflectionMethod->getName();
     }
 
     public function getShortName(): string
     {
-        return $this->betterMethodReflection->getShortName();
+        return $this->reflectionMethod->getShortName();
     }
 
     public function getDeclaringTrait(): TraitReflectionInterface
     {
         return $this->transformerCollector->transformSingle(
-            $this->betterMethodReflection->getDeclaringClass()
+            $this->reflectionMethod->getDeclaringClass()
         );
     }
 
@@ -63,22 +63,22 @@ final class TraitMethodReflection implements TraitMethodReflectionInterface, Tra
 
     public function isAbstract(): bool
     {
-        return $this->betterMethodReflection->isAbstract();
+        return $this->reflectionMethod->isAbstract();
     }
 
     public function isFinal(): bool
     {
-        return $this->betterMethodReflection->isFinal();
+        return $this->reflectionMethod->isFinal();
     }
 
     public function isStatic(): bool
     {
-        return $this->betterMethodReflection->isStatic();
+        return $this->reflectionMethod->isStatic();
     }
 
     public function returnsReference(): bool
     {
-        return $this->betterMethodReflection->returnsReference();
+        return $this->reflectionMethod->returnsReference();
     }
 
     /**
@@ -86,14 +86,12 @@ final class TraitMethodReflection implements TraitMethodReflectionInterface, Tra
      */
     public function getParameters(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterMethodReflection->getParameters()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionMethod->getParameters());
     }
 
     public function isDeprecated(): bool
     {
-        if ($this->betterMethodReflection->isDeprecated()) {
+        if ($this->reflectionMethod->isDeprecated()) {
             return true;
         }
 
@@ -138,27 +136,27 @@ final class TraitMethodReflection implements TraitMethodReflectionInterface, Tra
 
     public function getStartLine(): int
     {
-        return $this->betterMethodReflection->getStartLine();
+        return $this->reflectionMethod->getStartLine();
     }
 
     public function getEndLine(): int
     {
-        return $this->betterMethodReflection->getEndLine();
+        return $this->reflectionMethod->getEndLine();
     }
 
     public function isPublic(): bool
     {
-        return $this->betterMethodReflection->isPublic();
+        return $this->reflectionMethod->isPublic();
     }
 
     public function isProtected(): bool
     {
-        return $this->betterMethodReflection->isProtected();
+        return $this->reflectionMethod->isProtected();
     }
 
     public function isPrivate(): bool
     {
-        return $this->betterMethodReflection->isPrivate();
+        return $this->reflectionMethod->isPrivate();
     }
 
     public function setTransformerCollector(TransformerCollector $transformerCollector): void

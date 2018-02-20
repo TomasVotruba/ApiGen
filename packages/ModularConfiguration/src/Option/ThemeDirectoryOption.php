@@ -57,10 +57,7 @@ final class ThemeDirectoryOption implements OptionInterface
     private function validateDirectory(string $value): void
     {
         if (! is_dir($value)) {
-            throw new ConfigurationException(sprintf(
-                'Theme directory "%s" was not found.',
-                $value
-            ));
+            throw new ConfigurationException(sprintf('Theme directory "%s" was not found.', $value));
         }
     }
 }

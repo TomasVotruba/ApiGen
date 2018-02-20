@@ -11,19 +11,19 @@ final class AccessLevelTest extends AbstractParserAwareTestCase
     /**
      * @var AccessLevelInterface
      */
-    private $reflection;
+    private $accessLevel;
 
     protected function setUp(): void
     {
         $this->parser->parseFilesAndDirectories([__DIR__ . '/Source']);
         $classReflection = $this->reflectionStorage->getClassReflections()[SomeClassWithAnnotations::class];
-        $this->reflection = $classReflection->getMethod('methodWithArgs');
+        $this->accessLevel = $classReflection->getMethod('methodWithArgs');
     }
 
     public function test(): void
     {
-        $this->assertTrue($this->reflection->isPublic());
-        $this->assertFalse($this->reflection->isProtected());
-        $this->assertFalse($this->reflection->isPrivate());
+        $this->assertTrue($this->accessLevel->isPublic());
+        $this->assertFalse($this->accessLevel->isProtected());
+        $this->assertFalse($this->accessLevel->isPrivate());
     }
 }

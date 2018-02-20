@@ -12,7 +12,7 @@ final class ClassTypeHintPropertyTest extends AbstractParserAwareTestCase
     /**
      * @var ClassPropertyReflectionInterface
      */
-    private $propertyReflection;
+    private $classPropertyReflection;
 
     protected function setUp(): void
     {
@@ -20,14 +20,14 @@ final class ClassTypeHintPropertyTest extends AbstractParserAwareTestCase
 
         $classReflections = $this->reflectionStorage->getClassReflections();
         $classReflection = $classReflections[ReflectionProperty::class];
-        $this->propertyReflection = $classReflection->getProperty('propertyOfClassType');
+        $this->classPropertyReflection = $classReflection->getProperty('propertyOfClassType');
     }
 
     public function testGetTypeHint(): void
     {
-        $this->assertSame(PropertyOfClassType::class, $this->propertyReflection->getTypeHint());
+        $this->assertSame(PropertyOfClassType::class, $this->classPropertyReflection->getTypeHint());
 
-        $typeHint = $this->propertyReflection->getTypeHint();
+        $typeHint = $this->classPropertyReflection->getTypeHint();
         $this->assertSame(PropertyOfClassType::class, $typeHint);
     }
 }

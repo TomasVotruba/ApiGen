@@ -71,16 +71,10 @@ final class FileSystemTest extends TestCase
 
         $this->assertSame($absoluteDir, $this->fileSystem->getAbsolutePath($absoluteDir));
 
-        $this->assertSame(
-            'someFile.txt',
-            $this->fileSystem->getAbsolutePath('someFile.txt')
-        );
+        $this->assertSame('someFile.txt', $this->fileSystem->getAbsolutePath('someFile.txt'));
 
         $testFile = DIRECTORY_SEPARATOR . 'someDir' . DIRECTORY_SEPARATOR . 'someDeeperFile.txt';
-        $this->assertSame(
-            $testFile,
-            $this->fileSystem->getAbsolutePath($testFile)
-        );
+        $this->assertSame($testFile, $this->fileSystem->getAbsolutePath($testFile));
     }
 
     public function testIsDirEmpty(): void

@@ -22,12 +22,9 @@ final class ParentEmptyNamespacesResolverTest extends AbstractContainerAwareTest
      * @param string[] $resolvedNamespaces
      * @param string[] $namespaces
      */
-    public function test(array $resolvedNamespaces, array $namespaces): void
+    public function testTest(array $resolvedNamespaces, array $namespaces): void
     {
-        $this->assertSame(
-            $resolvedNamespaces,
-            $this->parentEmptyNamespacesResolver->resolve($namespaces)
-        );
+        $this->assertSame($resolvedNamespaces, $this->parentEmptyNamespacesResolver->resolve($namespaces));
     }
 
     /**

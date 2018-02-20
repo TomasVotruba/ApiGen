@@ -12,7 +12,7 @@ final class ClassPropertyReflectionTest extends AbstractParserAwareTestCase
     /**
      * @var ClassPropertyReflectionInterface
      */
-    private $propertyReflection;
+    private $classPropertyReflection;
 
     protected function setUp(): void
     {
@@ -20,48 +20,48 @@ final class ClassPropertyReflectionTest extends AbstractParserAwareTestCase
 
         $classReflections = $this->reflectionStorage->getClassReflections();
         $classReflection = $classReflections[ReflectionProperty::class];
-        $this->propertyReflection = $classReflection->getProperty('memberCount');
+        $this->classPropertyReflection = $classReflection->getProperty('memberCount');
     }
 
     public function testName(): void
     {
-        $this->assertSame('memberCount', $this->propertyReflection->getName());
+        $this->assertSame('memberCount', $this->classPropertyReflection->getName());
         $this->assertSame(
             'ApiGen\Reflection\Tests\Reflection\Class_\ClassPropertyReflection\Source',
-            $this->propertyReflection->getNamespaceName()
+            $this->classPropertyReflection->getNamespaceName()
         );
     }
 
     public function testInstance(): void
     {
-        $this->assertInstanceOf(ClassPropertyReflectionInterface::class, $this->propertyReflection);
+        $this->assertInstanceOf(ClassPropertyReflectionInterface::class, $this->classPropertyReflection);
     }
 
     public function testGetTypeHint(): void
     {
-        $this->assertSame('int', $this->propertyReflection->getTypeHint());
+        $this->assertSame('int', $this->classPropertyReflection->getTypeHint());
     }
 
     public function testGetDeclaringClass(): void
     {
-        $this->assertInstanceOf(ClassReflectionInterface::class, $this->propertyReflection->getDeclaringClass());
-        $this->assertSame(ReflectionProperty::class, $this->propertyReflection->getDeclaringClassName());
+        $this->assertInstanceOf(ClassReflectionInterface::class, $this->classPropertyReflection->getDeclaringClass());
+        $this->assertSame(ReflectionProperty::class, $this->classPropertyReflection->getDeclaringClassName());
     }
 
     public function testDefaults(): void
     {
-        $this->assertTrue($this->propertyReflection->isDefault());
-        $this->assertSame(52, $this->propertyReflection->getDefaultValue());
+        $this->assertTrue($this->classPropertyReflection->isDefault());
+        $this->assertSame(52, $this->classPropertyReflection->getDefaultValue());
     }
 
     public function testIsStatic(): void
     {
-        $this->assertFalse($this->propertyReflection->isStatic());
+        $this->assertFalse($this->classPropertyReflection->isStatic());
     }
 
     public function testLines(): void
     {
-        $this->assertSame(10, $this->propertyReflection->getStartLine());
-        $this->assertSame(10, $this->propertyReflection->getEndLine());
+        $this->assertSame(10, $this->classPropertyReflection->getStartLine());
+        $this->assertSame(10, $this->classPropertyReflection->getEndLine());
     }
 }

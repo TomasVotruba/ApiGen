@@ -17,7 +17,7 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
     /**
      * @var ReflectionProperty
      */
-    private $betterPropertyReflection;
+    private $reflectionProperty;
 
     /**
      * @var DocBlock
@@ -29,15 +29,15 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
      */
     private $transformerCollector;
 
-    public function __construct(ReflectionProperty $betterPropertyReflection, DocBlock $docBlock)
+    public function __construct(ReflectionProperty $reflectionProperty, DocBlock $docBlock)
     {
-        $this->betterPropertyReflection = $betterPropertyReflection;
+        $this->reflectionProperty = $reflectionProperty;
         $this->docBlock = $docBlock;
     }
 
     public function getNamespaceName(): string
     {
-        return $this->betterPropertyReflection->getDeclaringClass()
+        return $this->reflectionProperty->getDeclaringClass()
             ->getNamespaceName();
     }
 
@@ -53,7 +53,7 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
     public function getDeclaringTrait(): TraitReflectionInterface
     {
         return $this->transformerCollector->transformSingle(
-            $this->betterPropertyReflection->getDeclaringClass()
+            $this->reflectionProperty->getDeclaringClass()
         );
     }
 
@@ -65,17 +65,17 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
 
     public function getStartLine(): int
     {
-        return $this->betterPropertyReflection->getStartLine();
+        return $this->reflectionProperty->getStartLine();
     }
 
     public function getEndLine(): int
     {
-        return $this->betterPropertyReflection->getEndLine();
+        return $this->reflectionProperty->getEndLine();
     }
 
     public function getName(): string
     {
-        return $this->betterPropertyReflection->getName();
+        return $this->reflectionProperty->getName();
     }
 
     /**
@@ -83,12 +83,12 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
      */
     public function isDefault(): bool
     {
-        return $this->betterPropertyReflection->isDefault();
+        return $this->reflectionProperty->isDefault();
     }
 
     public function isStatic(): bool
     {
-        return $this->betterPropertyReflection->isStatic();
+        return $this->reflectionProperty->isStatic();
     }
 
     /**
@@ -96,12 +96,12 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
      */
     public function getDefaultValue()
     {
-        return $this->betterPropertyReflection->getDefaultValue();
+        return $this->reflectionProperty->getDefaultValue();
     }
 
     public function getTypeHint(): string
     {
-        $typeHints = $this->betterPropertyReflection->getDocBlockTypes();
+        $typeHints = $this->reflectionProperty->getDocBlockTypes();
         if (! count($typeHints)) {
             return '';
         }
@@ -113,7 +113,7 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
             return ltrim($classOrInterfaceName, '\\');
         }
 
-        return implode('|', $this->betterPropertyReflection->getDocBlockTypeStrings());
+        return implode('|', $this->reflectionProperty->getDocBlockTypeStrings());
     }
 
     /**
@@ -139,17 +139,17 @@ final class TraitPropertyReflection implements TraitPropertyReflectionInterface,
 
     public function isPrivate(): bool
     {
-        return $this->betterPropertyReflection->isPrivate();
+        return $this->reflectionProperty->isPrivate();
     }
 
     public function isProtected(): bool
     {
-        return $this->betterPropertyReflection->isProtected();
+        return $this->reflectionProperty->isProtected();
     }
 
     public function isPublic(): bool
     {
-        return $this->betterPropertyReflection->isPublic();
+        return $this->reflectionProperty->isPublic();
     }
 
     public function isDeprecated(): bool

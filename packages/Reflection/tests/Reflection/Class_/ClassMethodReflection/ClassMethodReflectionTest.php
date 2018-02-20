@@ -13,7 +13,7 @@ final class ClassMethodReflectionTest extends AbstractParserAwareTestCase
     /**
      * @var ClassMethodReflectionInterface
      */
-    private $methodReflection;
+    private $classMethodReflection;
 
     protected function setUp(): void
     {
@@ -21,38 +21,38 @@ final class ClassMethodReflectionTest extends AbstractParserAwareTestCase
 
         $classReflections = $this->reflectionStorage->getClassReflections();
         $classReflection = $classReflections[ClassMethod::class];
-        $this->methodReflection = $classReflection->getMethod('methodWithArgs');
+        $this->classMethodReflection = $classReflection->getMethod('methodWithArgs');
     }
 
     public function testName(): void
     {
-        $this->assertSame('methodWithArgs', $this->methodReflection->getName());
+        $this->assertSame('methodWithArgs', $this->classMethodReflection->getName());
     }
 
     public function testInstance(): void
     {
-        $this->assertInstanceOf(ClassMethodReflectionInterface::class, $this->methodReflection);
+        $this->assertInstanceOf(ClassMethodReflectionInterface::class, $this->classMethodReflection);
     }
 
     public function testGetDeclaringClass(): void
     {
-        $this->assertInstanceOf(ClassReflectionInterface::class, $this->methodReflection->getDeclaringClass());
-        $this->assertSame(ClassMethod::class, $this->methodReflection->getDeclaringClassName());
+        $this->assertInstanceOf(ClassReflectionInterface::class, $this->classMethodReflection->getDeclaringClass());
+        $this->assertSame(ClassMethod::class, $this->classMethodReflection->getDeclaringClassName());
     }
 
     public function testModificators(): void
     {
-        $this->assertFalse($this->methodReflection->isAbstract());
-        $this->assertFalse($this->methodReflection->isFinal());
-        $this->assertFalse($this->methodReflection->isPrivate());
-        $this->assertFalse($this->methodReflection->isProtected());
-        $this->assertTrue($this->methodReflection->isPublic());
-        $this->assertFalse($this->methodReflection->isStatic());
+        $this->assertFalse($this->classMethodReflection->isAbstract());
+        $this->assertFalse($this->classMethodReflection->isFinal());
+        $this->assertFalse($this->classMethodReflection->isPrivate());
+        $this->assertFalse($this->classMethodReflection->isProtected());
+        $this->assertTrue($this->classMethodReflection->isPublic());
+        $this->assertFalse($this->classMethodReflection->isStatic());
     }
 
     public function testGetParameters(): void
     {
-        $parameters = $this->methodReflection->getParameters();
+        $parameters = $this->classMethodReflection->getParameters();
         $this->assertCount(3, $parameters);
         $this->assertInstanceOf(MethodParameterReflectionInterface::class, $parameters['url']);
         $this->assertSame(['url', 'data', 'headers'], array_keys($parameters));
@@ -60,6 +60,6 @@ final class ClassMethodReflectionTest extends AbstractParserAwareTestCase
 
     public function testReturnReference(): void
     {
-        $this->assertFalse($this->methodReflection->returnsReference());
+        $this->assertFalse($this->classMethodReflection->returnsReference());
     }
 }

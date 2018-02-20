@@ -23,7 +23,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
     /**
      * @var ReflectionClass
      */
-    private $betterClassReflection;
+    private $reflectionClass;
 
     /**
      * @var DocBlock
@@ -46,12 +46,12 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
     private $subClassesResolver;
 
     public function __construct(
-        ReflectionClass $betterClassReflection,
+        ReflectionClass $reflectionClass,
         DocBlock $docBlock,
         ParentClassElementsResolver $parentClassElementsResolver,
         SubClassesResolver $subClassesResolver
     ) {
-        $this->betterClassReflection = $betterClassReflection;
+        $this->reflectionClass = $reflectionClass;
         $this->docBlock = $docBlock;
         $this->parentClassElementsResolver = $parentClassElementsResolver;
         $this->subClassesResolver = $subClassesResolver;
@@ -59,27 +59,27 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
 
     public function getName(): string
     {
-        return $this->betterClassReflection->getName();
+        return $this->reflectionClass->getName();
     }
 
     public function getShortName(): string
     {
-        return $this->betterClassReflection->getShortName();
+        return $this->reflectionClass->getShortName();
     }
 
     public function getStartLine(): int
     {
-        return $this->betterClassReflection->getStartLine();
+        return $this->reflectionClass->getStartLine();
     }
 
     public function getEndLine(): int
     {
-        return $this->betterClassReflection->getEndLine();
+        return $this->reflectionClass->getEndLine();
     }
 
     public function getNamespaceName(): string
     {
-        return $this->betterClassReflection->getNamespaceName();
+        return $this->reflectionClass->getNamespaceName();
     }
 
     /**
@@ -134,14 +134,14 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
         }
 
         return $this->transformerCollector->transformSingle(
-            $this->betterClassReflection->getParentClass()
+            $this->reflectionClass->getParentClass()
         );
     }
 
     public function getParentClassName(): string
     {
-        if ($this->betterClassReflection->getParentClass()) {
-            return $this->betterClassReflection->getParentClass()
+        if ($this->reflectionClass->getParentClass()) {
+            return $this->reflectionClass->getParentClass()
                 ->getName();
         }
 
@@ -174,7 +174,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
 
     public function implementsInterface(string $interface): bool
     {
-        return $this->betterClassReflection->implementsInterface($interface);
+        return $this->reflectionClass->implementsInterface($interface);
     }
 
     /**
@@ -183,7 +183,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
     public function getOwnInterfaces(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getImmediateInterfaces()
+            $this->reflectionClass->getImmediateInterfaces()
         );
     }
 
@@ -222,7 +222,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
     public function getOwnConstants(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getImmediateReflectionConstants()
+            $this->reflectionClass->getImmediateReflectionConstants()
         );
     }
 
@@ -280,9 +280,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
      */
     public function getTraits(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getTraits()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getTraits());
     }
 
     /**
@@ -290,7 +288,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
      */
     public function getTraitAliases(): array
     {
-        return $this->betterClassReflection->getTraitAliases();
+        return $this->reflectionClass->getTraitAliases();
     }
 
     /**
@@ -298,9 +296,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
      */
     public function getProperties(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getProperties()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getProperties());
     }
 
     /**
@@ -309,7 +305,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
     public function getOwnProperties(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getImmediateProperties()
+            $this->reflectionClass->getImmediateProperties()
         );
     }
 
@@ -336,17 +332,17 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
 
     public function isAbstract(): bool
     {
-        return $this->betterClassReflection->isAbstract();
+        return $this->reflectionClass->isAbstract();
     }
 
     public function isFinal(): bool
     {
-        return $this->betterClassReflection->isFinal();
+        return $this->reflectionClass->isFinal();
     }
 
     public function isSubclassOf(string $class): bool
     {
-        return $this->betterClassReflection->isSubclassOf($class);
+        return $this->reflectionClass->isSubclassOf($class);
     }
 
     public function isDeprecated(): bool
@@ -369,7 +365,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
 
     public function getFileName(): ?string
     {
-        return $this->betterClassReflection->getFileName();
+        return $this->reflectionClass->getFileName();
     }
 
     /**
@@ -401,7 +397,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
     public function getOwnMethods(): array
     {
         return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getImmediateMethods()
+            $this->reflectionClass->getImmediateMethods()
         );
     }
 
@@ -423,9 +419,7 @@ final class ClassReflection implements ClassReflectionInterface, TransformerColl
      */
     public function getInterfaces(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterClassReflection->getInterfaces()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionClass->getInterfaces());
     }
 
     public function setTransformerCollector(TransformerCollector $transformerCollector): void

@@ -90,11 +90,11 @@ final class SourceCodeRoute implements RouteInterface
         return '/';
     }
 
-    private function buildLineAnchor(StartAndEndLineInterface $reflection): string
+    private function buildLineAnchor(StartAndEndLineInterface $startAndEndLine): string
     {
-        $anchor = '#' . $reflection->getStartLine();
-        if ($reflection->getStartLine() !== $reflection->getEndLine()) {
-            $anchor .= '-' . $reflection->getEndLine();
+        $anchor = '#' . $startAndEndLine->getStartLine();
+        if ($startAndEndLine->getStartLine() !== $startAndEndLine->getEndLine()) {
+            $anchor .= '-' . $startAndEndLine->getEndLine();
         }
 
         return $anchor;

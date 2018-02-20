@@ -13,7 +13,9 @@ final class ParserTest extends AbstractContainerAwareTestCase
 {
     public function testFilesAndDirectorySource(): void
     {
+        /** @var Parser $parser */
         $parser = $this->container->get(Parser::class);
+        /** @var ReflectionStorage $reflectionStorage */
         $reflectionStorage = $this->container->get(ReflectionStorage::class);
 
         $parser->parseFilesAndDirectories([
@@ -28,7 +30,9 @@ final class ParserTest extends AbstractContainerAwareTestCase
 
     public function testFiles(): void
     {
+        /** @var Parser $parser */
         $parser = $this->container->get(Parser::class);
+        /** @var ReflectionStorage $reflectionStorage */
         $reflectionStorage = $this->container->get(ReflectionStorage::class);
 
         $parser->parseFilesAndDirectories([

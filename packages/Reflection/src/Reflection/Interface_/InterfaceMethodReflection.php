@@ -16,7 +16,7 @@ final class InterfaceMethodReflection implements InterfaceMethodReflectionInterf
     /**
      * @var ReflectionMethod
      */
-    private $betterMethodReflection;
+    private $reflectionMethod;
 
     /**
      * @var TransformerCollector
@@ -28,20 +28,20 @@ final class InterfaceMethodReflection implements InterfaceMethodReflectionInterf
      */
     private $docBlock;
 
-    public function __construct(ReflectionMethod $betterMethodReflection, DocBlock $docBlock)
+    public function __construct(ReflectionMethod $reflectionMethod, DocBlock $docBlock)
     {
-        $this->betterMethodReflection = $betterMethodReflection;
+        $this->reflectionMethod = $reflectionMethod;
         $this->docBlock = $docBlock;
     }
 
     public function getName(): string
     {
-        return $this->betterMethodReflection->getName();
+        return $this->reflectionMethod->getName();
     }
 
     public function getShortName(): string
     {
-        return $this->betterMethodReflection->getShortName();
+        return $this->reflectionMethod->getShortName();
     }
 
     /**
@@ -49,15 +49,13 @@ final class InterfaceMethodReflection implements InterfaceMethodReflectionInterf
      */
     public function getParameters(): array
     {
-        return $this->transformerCollector->transformGroup(
-            $this->betterMethodReflection->getParameters()
-        );
+        return $this->transformerCollector->transformGroup($this->reflectionMethod->getParameters());
     }
 
     public function getDeclaringInterface(): InterfaceReflectionInterface
     {
         return $this->transformerCollector->transformSingle(
-            $this->betterMethodReflection->getDeclaringClass()
+            $this->reflectionMethod->getDeclaringClass()
         );
     }
 
@@ -74,7 +72,7 @@ final class InterfaceMethodReflection implements InterfaceMethodReflectionInterf
 
     public function isDeprecated(): bool
     {
-        if ($this->betterMethodReflection->isDeprecated()) {
+        if ($this->reflectionMethod->isDeprecated()) {
             return true;
         }
 
@@ -114,11 +112,11 @@ final class InterfaceMethodReflection implements InterfaceMethodReflectionInterf
 
     public function getStartLine(): int
     {
-        return $this->betterMethodReflection->getStartLine();
+        return $this->reflectionMethod->getStartLine();
     }
 
     public function getEndLine(): int
     {
-        return $this->betterMethodReflection->getEndLine();
+        return $this->reflectionMethod->getEndLine();
     }
 }

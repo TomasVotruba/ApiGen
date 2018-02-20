@@ -17,16 +17,16 @@ final class StringRoutingFiltersProvider implements FilterProviderInterface
     /**
      * @var StringRouter
      */
-    private $router;
+    private $stringRouter;
 
     /**
      * @var ReflectionStorage
      */
     private $reflectionStorage;
 
-    public function __construct(StringRouter $router, ReflectionStorage $reflectionStorage)
+    public function __construct(StringRouter $stringRouter, ReflectionStorage $reflectionStorage)
     {
-        $this->router = $router;
+        $this->stringRouter = $stringRouter;
         $this->reflectionStorage = $reflectionStorage;
     }
 
@@ -38,21 +38,21 @@ final class StringRoutingFiltersProvider implements FilterProviderInterface
         return [
             // use in .latte: <a href="{$namespace|linkNamespace}">{$namespace}</a>
             'linkNamespace' => function (string $namespace): string {
-                return $this->router->buildRoute(NamespaceRoute::NAME, $namespace);
+                return $this->stringRouter->buildRoute(NamespaceRoute::NAME, $namespace);
             },
 
             // use in .latte: <a href="{$refleciton|linkReflection}">{$name}</a>
             'linkReflection' => function ($reflection): string {
                 $this->ensureFilterArgumentsIsReflection($reflection, 'linkReflection');
 
-                return $this->router->buildRoute(ReflectionRoute::NAME, $reflection);
+                return $this->stringRouter->buildRoute(ReflectionRoute::NAME, $reflection);
             },
 
             // use in .latte: <a href="{$reflection|linkSource}">{$name}</a>
             'linkSource' => function ($reflection): string {
                 $this->ensureFilterArgumentsIsReflection($reflection, 'linkSource');
 
-                return $this->router->buildRoute(SourceCodeRoute::NAME, $reflection);
+                return $this->stringRouter->buildRoute(SourceCodeRoute::NAME, $reflection);
             },
 
             // use in .latte: {$className|buildLinkIfReflectionFound}
@@ -60,7 +60,7 @@ final class StringRoutingFiltersProvider implements FilterProviderInterface
                 $reflection = $this->reflectionStorage->getClassOrInterface($className);
                 if ($reflection) {
                     $link = Html::el('a');
-                    $link->setAttribute('href', $this->router->buildRoute(ReflectionRoute::NAME, $reflection));
+                    $link->setAttribute('href', $this->stringRouter->buildRoute(ReflectionRoute::NAME, $reflection));
                     $link->setText($className);
 
                     return $link;

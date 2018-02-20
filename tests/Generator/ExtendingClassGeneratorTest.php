@@ -11,7 +11,7 @@ final class ExtendingClassGeneratorTest extends AbstractContainerAwareTestCase
     /**
      * @var ClassGenerator
      */
-    private $classElementGenerator;
+    private $classGenerator;
 
     protected function setUp(): void
     {
@@ -19,12 +19,12 @@ final class ExtendingClassGeneratorTest extends AbstractContainerAwareTestCase
         $parser = $this->container->get(Parser::class);
         $parser->parseFilesAndDirectories([__DIR__ . '/ExtendingSources']);
 
-        $this->classElementGenerator = $this->container->get(ClassGenerator::class);
+        $this->classGenerator = $this->container->get(ClassGenerator::class);
     }
 
     public function testGenerate(): void
     {
-        $this->classElementGenerator->generate();
+        $this->classGenerator->generate();
 
         $this->assertFileExists(
             TEMP_DIR . '/class-ApiGen.Tests.Generator.ExtendingSources.ExtendingClass.html'
